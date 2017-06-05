@@ -6,14 +6,14 @@
    [:div
      [:div "Hello there from " @(re-frame/subscribe [:name])]
      (println spendings)
-     (into
-       [:ul] 
+
+     [:ul 
        (map 
          (fn [[k v]]
-           [:li k "--" v])
+           ^{:key k} [:li k "--" v])
          spendings
-       )
-     )
+       )]
+     [:input ]
    ]
  )
 )
