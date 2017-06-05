@@ -2,6 +2,18 @@
     (:require [re-frame.core :as re-frame]))
 
 (defn main-panel []
-  (let [name (re-frame/subscribe [:name])]
-    (fn []
-      [:div "Hello from " @name])))
+  (let [spendings @(re-frame/subscribe [:spendings])]
+   [:div
+     [:div "Hello there from " @(re-frame/subscribe [:name])]
+     (println spendings)
+     (into
+       [:ul] 
+       (map 
+         (fn [[k v]]
+           [:li k "--" v])
+         spendings
+       )
+     )
+   ]
+ )
+)
