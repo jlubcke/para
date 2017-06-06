@@ -31,10 +31,10 @@
   (let [spendings @(re-frame/subscribe [:spendings])]
    [:div
      [:div "Hello there from " @(re-frame/subscribe [:name])]
-     [:ul 
+     [:table 
        (map 
          (fn [[k v]]
-           ^{:key k} [:li k "--" v])
+           ^{:key k} [:tr [:td k] [:td v]])
          spendings
        )]
      (spending-form)
