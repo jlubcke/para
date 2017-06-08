@@ -8,8 +8,24 @@
    db/default-db))
 
 (re-frame/reg-event-db
- :new-spending
- (fn [db [_ [spender amount]]]
-   (println (str spender))
-      (println (str db))
-   (assoc-in db [:spendings spender] amount)))
+  :name
+  (fn [db [_ name]]
+    (assoc db :name name)))
+
+
+(re-frame/reg-event-db
+  :amount
+  (fn [db [_ amount]]
+    (assoc db :amount amount)))
+
+
+(re-frame/reg-event-db
+  :new-spending
+  (fn [db [_ spender amount]]
+    (println (str spender))
+    (println (str db))
+    (let [
+      db (assoc db :name nil)
+      db (assoc db :amount nil)
+      db (assoc-in db [:spendings spender] amount)
+    ] db)))

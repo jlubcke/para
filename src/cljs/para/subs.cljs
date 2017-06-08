@@ -8,6 +8,11 @@
    (:name db)))
 
 (re-frame/reg-sub
+ :amount
+ (fn [db]
+   (:amount db)))
+
+(re-frame/reg-sub
  :spendings
  (fn [db]
    (:spendings db)))

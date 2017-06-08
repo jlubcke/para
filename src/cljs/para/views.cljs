@@ -1,30 +1,23 @@
 (ns para.views
     (:require
-       [reagent.core :as reagent]
        [re-frame.core :as re-frame]))
 
-(defonce spender (reagent/atom "Foo"))
-(defonce amount (reagent/atom 17))
-
 (defn spending-form []
-  [:form
+  [:div
      [:h2 "Name"]
      [:input {
-       :value @spender
-       :on-change #(reset! spender (-> % .-target .-value))
-     }
-     ]
+        :value @(re-frame/subscribe [:name])
+        :on-change #(re-frame/dispatch [:name (-> % .-target .-value)])
+     }]
      [:h2 "Spending"]
      [:input {
-        :value @amount
-       :on-change #(reset! amount (-> % .-target .-value))
-
+        :value @(re-frame/subscribe [:amount])
+        :on-change #(re-frame/dispatch [:amount (-> % .-target .-value)])
      }]
      [:submit {
        :type "button"
-       :on-click #(re-frame/dispatch [:new-spending [@spender @amount]])
+       :on-click #(re-frame/dispatch [:new-spending @(re-frame/subscribe [:name]) @(re-frame/subscribe [:amount])])
       } "Add"]
-     
   ])
 
 (defn main-panel []

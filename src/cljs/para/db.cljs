@@ -1,9 +1,10 @@
 (ns para.db)
 
 (def default-db
-  {:name "Para"
-   :spendings {
+  {:spendings {
      "Nisse" 25
    }
+   :name ""
+   :amount ""
   }
 )
