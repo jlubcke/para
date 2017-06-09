@@ -22,10 +22,22 @@
 (re-frame/reg-event-db
   :new-spending
   (fn [db [_ spender amount]]
-    (println (str spender))
-    (println (str db))
     (let [
       db (assoc db :name nil)
       db (assoc db :amount nil)
       db (assoc-in db [:spendings spender] amount)
     ] db)))
+
+(re-frame/reg-event-db
+  :edit
+  (fn [db [_ name]]
+    (let [
+      db (assoc db :name name)
+      db (assoc db :amount ((:spendings db) name))
+    ] db)))
+
+(re-frame/reg-event-db
+  :delete
+  (fn [db [_ name]]
+    (assoc db :spendings (dissoc (:spendings db) name))))
+

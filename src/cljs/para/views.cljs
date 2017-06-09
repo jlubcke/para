@@ -27,7 +27,12 @@
      [:table 
        (map 
          (fn [[k v]]
-           ^{:key k} [:tr [:td k] [:td v]])
+           ^{:key k} [:tr 
+             [:td k]
+             [:td v] 
+             [:td [:a {:on-click #(re-frame/dispatch [:edit k])}"Edit"]]
+             [:td [:a {:on-click #(re-frame/dispatch [:delete k])}"Delete"]]
+           ])
          spendings
        )]
      (spending-form)
